@@ -20,7 +20,7 @@
 <?php
 require 'connection.php';
 $term = ($_GET['term']);
-$type = ($_GET['type']);
+//$type = ($_GET['type']);
 $order = ($_GET['order']);
 //if (strpos($term,"--")){
 //    $search="";
@@ -30,8 +30,15 @@ $order = ($_GET['order']);
 //}
 //
 //}
-$search = "SELECT * FROM wadsongs WHERE $type LIKE '%$term%' ORDER BY $order DESC";
 $songSearch="";
+$search = "SELECT count(*) as c FROM wadsongs WHERE artist LIKE '%$term%' OR song LIKE '%$term%' OR year LIKE '%$term%'";
+foreach ($conn->query($search) as $rowReturn) {
+   $c= $rowReturn['c'];
+   $t = time();
+$songSearch .="<p>$c results returned.</p>";
+}
+$search = "SELECT * FROM wadsongs WHERE artist LIKE '%$term%' OR song LIKE '%$term%' OR year LIKE '%$term%'ORDER BY $order DESC";
+
 echo "<table id='songTable'>
         <tr>
             <th>Artist</th>
@@ -57,6 +64,7 @@ foreach ($conn->query($search) as $rowReturn) {
     $chart = $rowReturn['chart'];
     $downloadHREF= "'https://www.amazon.co.uk/s/ref=nb_sb_noss_1?url=search-alias%3Ddigital-music&field-keywords=$artistQuery+$titleQuery'";
     $titleHREF= "'https://www.youtube.com/results?search_query=$artistQuery+$titleQuery'";
+    $date = gmdate("d-M-y",strtotime($day."-".$month."-".$year));
     $songSearch .= "
             <tr >
             <td>$artist</td>
@@ -64,7 +72,7 @@ foreach ($conn->query($search) as $rowReturn) {
             <td>$likes</td>
             <td>$downloads</td>
             <td>$chart</td>
-            <td>$day-$month-$year</td>
+            <td>$date</td>
             <td><a target='_blank' href=$titleHREF>$title</a></td>
             <td><a target='_blank' href=$downloadHREF>$title</a> </td>
 

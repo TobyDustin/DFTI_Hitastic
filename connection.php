@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "test2";
-$password = "";
+$username = "hittastic";
+$password = "password";
 $dbname = "music";
 
 
@@ -45,9 +45,14 @@ function searchDatabase($conn,$term,$type){
     }else{
         $order = "ID";
     }
-        $search = "SELECT * FROM wadsongs WHERE $type LIKE '%$term%' ORDER BY $order DESC";
+        //$search = "SELECT * FROM wadsongs WHERE $type LIKE '%$term%' ORDER BY $order DESC";
+    $stmt = $conn->prepare("SELECT * FROM wadsongs WHERE ? LIKE '%?%' ORDER BY ? DESC");
 
-        foreach ($conn->query($search) as $rowReturn) {
+    $stmt->bindParam(1,$type);
+    $stmt->bindParam(2,$term);
+    $stmt->bindParam(3,$order);
+    $stmt->execute(); // DELETE THIS AFTERWARDS
+    while($rowReturn=$stmt->fetch()){
             $title =$rowReturn['song'];
             $titleQuery = str_replace(" ",'+',$title);
             $artist=$rowReturn['artist'];
@@ -91,28 +96,48 @@ function userCreated($conn,$email,$username,$password,$repassword,$dob){
     }
 }
 function addUser($conn,$user,$pass,$fullName,$date){
+    $sql = "INSERT INTO clients (username, password, full_name,date_of_birth) VALUES (:user, :pass, :fullname,:date)";
 
-    $sql = "INSERT INTO clients (username, password, full_name,date_of_birth)
-VALUES ('$user', '$pass', '$fullName','$date')";
-    print_r($sql);
-    if ($conn->query($sql) === TRUE) {
-        return true;
-    } else {
-        return false;
-    }
+    $stmt = $conn->prepare($sql);
 
-    $conn->close();
+//Bind the provided username to our prepared statement.
+    $stmt->bindValue(':user', $user);
+    $stmt->bindValue(':pass', $pass);
+    $stmt->bindValue(':fullname',$fullName);
+    $stmt->bindValue(':date',$date);
+
+//Execute.
+    $stmt->execute();
+
+//    $sql = "INSERT INTO clients (username, password, full_name,date_of_birth)
+//VALUES ('$user', '$pass', '$fullName','$date')";
+//    if ($conn->query($sql) === TRUE) {
+//        return true;
+//    } else {
+//        return false;
+//    }
+//
+//    $conn->close();
 }
 
 function signIn($conn,$user,$pass)
 {
-
-    $login = "SELECT count(id) AS 'cli' FROM clients WHERE username='$user' AND password='$pass'";
-    foreach ($conn->query($login) as $loginCheck) {
-        if ($loginCheck['cli'] == 1) {
+   // echo "<script>alert('$pass');</script>";
+    $stmt = $conn->prepare("SELECT count(id) as cli FROM clients WHERE username=:user AND password=:pass");
+    $stmt->bindParam(":user",$user);
+    $stmt->bindParam(":pass",$pass);
+    $stmt->execute();
+    //echo "<script>alert('$hashed');</script>";
+    while($loginCheck=$stmt->fetch()){
+        $l =$loginCheck['cli'];
+      //  echo "<script>alert('$l');</script>";
+        if ($loginCheck['cli'] ==1) {
+            //echo "<script>alert('working');</script>";
             return true;
-        } else {
+        }else{
             return false;
         }
     }
+
+    return false;
 }

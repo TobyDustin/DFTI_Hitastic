@@ -87,8 +87,7 @@ require 'connection.php';
         <div class='form-group'>
             <span>Search for...</span><br />
             <input type='text' class='form-control' autofocus value="<?php echo $term;?>" name='term' id='searchTerm' placeholder='Search...' oninput="showUser()">
-            <span>In...</span><br />
-            <select class="select-style" name="type" id="typeSelect" onchange="showUser()">
+            <select style="display: none" class="select-style" name="type" id="typeSelect" onchange="showUser()">
                 <option name="song" value="song">Song</option>
                 <option name="artist" value="artist">Artist</option>
                 <option name="year" value="year">Year</option>
@@ -130,7 +129,7 @@ require 'connection.php';
 //?>
 <!--    </table>-->
 <!--</main>-->
-<div id="txtHint"><b>Person info will be listed here...</b></div>
+<div id="txtHint"><b>Search anything...</b></div>
 
 
 
