@@ -1,0 +1,94 @@
+
+header{
+    width: 100vw;
+    height: 40vh;
+    text-align: center;
+    background: linear-gradient(to right,#00FFFF,#FF00FF);
+    margin-bottom: 5vh;
+
+}
+
+header img{
+    margin: 0 auto;
+    height: 10vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+.main{
+    text-align: center;
+}
+#searchTerm{
+    margin: 0 auto;
+    width: 30vw;
+}
+.select-style {
+    margin-top: 1vh;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    width: 30vw;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa url("img/icon-select.png") no-repeat 90% 50%;
+}
+
+
+.select-style select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}
+main{
+    width: 100vw;
+    height:50vh ;
+    text-align: center;
+}
+.result{
+    margin: 0 auto;
+    text-align: left;
+    width: 25vw;
+    display: inline-block;
+    background-color: #EEEEEE;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+
+}
+.resultHeader{
+    width: 100%;
+
+    top:0;
+    padding-top: 0;
+    margin-top: 0;
+}
+.resultBody{
+}
+.resultFooter{
+    padding-top: 0;
+    margin-bottom: 0;
+
+}
+table{
+    margin:0 auto;
+    width: 90vw;
+    table-layout: fixed;
+
+}
+table,th,td{
+    border: 1px solid black;
+}
+td { width: 15vw; }
+
+#logout{
+    float: left;
+    background-color: white;
+}
