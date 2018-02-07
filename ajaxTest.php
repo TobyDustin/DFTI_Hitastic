@@ -2,18 +2,17 @@
 <html>
 <head>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table, td, th {
-            border: 1px solid black;
-            padding: 5px;
-        }
-
-        th {text-align: left;}
+    #songTable{
+        width: 75%;
+    }
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -39,16 +38,16 @@ $songSearch .="<p>$c results returned.</p>";
 }
 $search = "SELECT * FROM wadsongs WHERE artist LIKE '%$term%' OR song LIKE '%$term%' OR year LIKE '%$term%'ORDER BY $order DESC";
 
-echo "<table id='songTable'>
+echo "<table id='songTable' class='table'>
         <tr>
-            <th>Artist</th>
-            <th>Song</th>
-            <th>Likes</th>
-            <th>Downloads</th>
-            <th>Chart</th>
-            <th>Release Date</th>
-            <th>Listen</th>
-            <th>Download</th>
+            <th scope='col'>Artist</th>
+            <th scope='col'>Song</th>
+            <th scope='col'>Likes</th>
+            <th scope='col'>Downloads</th>
+            <th scope='col'>Chart</th>
+            <th scope='col'>Release Date</th>
+            <th scope='col'>Listen</th>
+            <th scope='col'>Download</th>
 
         </tr>";
 foreach ($conn->query($search) as $rowReturn) {

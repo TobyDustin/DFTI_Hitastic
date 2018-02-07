@@ -28,6 +28,7 @@ require 'connection.php';
     }
     ?>
     <link rel="stylesheet" href="<?php echo$style ?>.css?version=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 
 
@@ -105,35 +106,39 @@ require 'connection.php';
 <!--        <button type='submit' class='btn btn-primary'>Search!</button>-->
     </form>
 </header>
-<!--<main>-->
-<!--    <h1>Results:</h1>-->
-<!--    <table id="songTable">-->
-<!--        <tr>-->
-<!--            <th>Artist</th>-->
-<!--            <th>Song</th>-->
-<!--            <th>Likes</th>-->
-<!--            <th>Downloads</th>-->
-<!--            <th>Chart</th>-->
-<!--            <th>Release Date</th>-->
-<!--            <th>Link</th>-->
-<!--            <th>Download</th>-->
-<!---->
-<!--        </tr>-->
-<?php
-//if (isset($_GET['term'])){
-//    $term = $_GET['term'];
-//    $type = $_GET['type'];
-//    $resultSearch = searchDatabase($conn,$term,$type);
-//}
-//echo searchDatabase($conn,$term,$type);
-//?>
-<!--    </table>-->
-<!--</main>-->
-<div id="txtHint"><b>Search anything...</b></div>
+
+<?php ?>
+
+<div id="txtHint">
+    <video autoplay muted loop id="myVideo" style="position: fixed;right: 0;bottom: 0;min-width: 100%;min-height: 100%; z-index: -100;">
+        <source src="forDFTI.mp4" type="video/mp4">
+    </video>
+    <div style="width: 30vw; margin: 0 auto;">
+
+    <h1 style="font-size: 48pt; color: #FFFFFF">Search for...</h1>
+    </div>
+    <div style="border-color: #fff; border-style: solid; border-width: 1px; width: 40vw; margin: 0 auto;">
+
+    <h1 style="font-size: pt;">
+        <?php $songCarosel= randomSongGetter($conn);?>
+
+        <a id="typer" href="#" style="color: #ffffff" class="typewrite" data-period="2000" data-type='<?php echo $songCarosel?>'>
+            <span class="wrap"></span>
+        </a>
+    </h1>
+
+
+</div>
 
 
 
 <script src="script.js"></script>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -141,3 +141,29 @@ function signIn($conn,$user,$pass)
 
     return false;
 }
+function randomSongGetter($conn){
+    $search = "SELECT count(*) AS cou FROM wadsongs;";
+
+    foreach ($conn->query($search) as $rowReturn) {
+        $max = $rowReturn['cou'];
+    }
+    $arrayList="";
+    $arrayList.="[";
+    //$arrayList ='[';
+    for($i=0;$i<15;$i++) {
+        $x = rand(1, $max);
+        $search = "SELECT song FROM wadsongs WHERE ID='$x'";
+        foreach ($conn->query($search) as $rowReturn) {
+            $song = $rowReturn['song'];
+        }
+        if ($i < 14) {
+            $arrayList .= "\"$song\"" . ",";
+        } else {
+            $arrayList .= "\"$song\"";
+        }
+
+    }
+    $arrayList.="]";
+    return $arrayList;
+
+}
